@@ -1,5 +1,5 @@
 from typing import Any, Optional
-# hello1
+import doctest
 
 
 class _Node:
@@ -86,12 +86,9 @@ class LinkedList:
             curr = self._head
             for _ in range(index-1):
                 curr = curr.next
-            print(curr)
 
             new_node = _Node(item)
             curr.next, new_node.next = new_node, curr.next
-
-            print(self)
     
     def pop(self, index: int) -> Any:
         """Remove and return node at position <index>.
@@ -117,7 +114,6 @@ class LinkedList:
         elif index == 0:
             temp = self._head.item
             self._head, self._head.next = self._head.next, self._head.next.next
-            print(self)
             return temp
         else:
             curr = self._head
@@ -126,7 +122,6 @@ class LinkedList:
             
             temp = curr.next.item
             curr.next = curr.next.next
-            print(self)
             return temp
     
     def reverse(self) -> None:
@@ -161,9 +156,6 @@ class LinkedList:
 if __name__ == "__main__":
     l1 = LinkedList([3,4])
     l1.reverse()
-    print(l1)
-
-
 
 class Recursion:
     """
@@ -202,8 +194,13 @@ class Recursion:
                 res += i
         
         return res
+
+    def print_helper(self, node: _Node) -> Any:
+        if node:
+            print(node.item)
+            self.print_helper(node.next)
     
-    def traverse_linky_recursive(linky: LinkedList) -> None:
+    def traverse_linky_recursive(self, linky: LinkedList) -> None:
         """
         Traverses a linked list recursively and prints out the data of each node
         Precondition:
@@ -218,8 +215,8 @@ class Recursion:
         5
         """
         curr = linky._head
-        if curr:
-            print(curr.item)
+        self.print_helper(curr)
+
 
         
 
@@ -234,4 +231,7 @@ if __name__ == "__main__":
 
     # SUM LISTS
     # print(recurs.sum_lists([]))
-    print(recurs.sum_list([]))
+    # print(recurs.sum_list([]))
+    recurs.traverse_linky_recursive(LinkedList([1,2,3,4,5]))
+
+    
