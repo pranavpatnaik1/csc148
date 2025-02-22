@@ -1,2 +1,2 @@
 # csc148
-prep for csc148 @ uoft.
+prep for csc148 @ uoft
