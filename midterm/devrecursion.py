@@ -1,4 +1,6 @@
 from typing import Any, Optional
+# hello
+
 
 class _Node:
     """
@@ -161,6 +163,8 @@ if __name__ == "__main__":
     l1.reverse()
     print(l1)
 
+
+
 class Recursion:
     """
     Develop examples of recursion.
@@ -213,6 +217,10 @@ class Recursion:
         4
         5
         """
+        curr = linky._head
+        if curr:
+            print(curr.item)
+
         
 
 if __name__ == "__main__":
