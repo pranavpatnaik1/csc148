@@ -216,9 +216,83 @@ class Recursion:
         """
         curr = linky._head
         self.print_helper(curr)
+    
+    def is_power(self, x: int, y: int) -> bool:
+        """
+        Returns true iff x is a power of y, False otherwise
+        Precondition:
+        x and y are positive non-zero integers
+        >>> is_power(8, 2)
+        True
+        >>> is_power(9, 2)
+        False
+        >>> is_power(1, 1)
+        True
+        """
+        if y == 1:
+            return x == 1
+        if x < y:
+            return False
+        elif x == y or x % y != 0:
+            return True
+        else:
+            return self.is_power(x/y,y) # type: ignore
+    
+    def weave_lists_recursive(self, linky1: LinkedList, linky2: LinkedList) -> LinkedList:
+        """
+        Merges two linked lists into a single linked list, maintaining the sorted order
+        Precondition:
+        linky1 and linky2 are sorted in ascending order
+        Note: MAKE MORE TEST CASES! (Especially edge cases)
+        >>> linky1 = LinkedList([1, 3, 5])
+        >>> linky2 = LinkedList([2, 4, 6])
+        >>> weave_lists_recursive(linky1, linky2)
+        1 -> 2 -> 3 -> 4 -> 5 -> 6
+        """
+        def merge_recursive(node1: _Node, node2: _Node) -> LinkedList:
+            if not node1:
+                return node2
+            if not node2:
+                return node1
+            
+            if node1.item < node2.item:
+                node1.next = merge_recursive(node1.next, node2)
+                return node1
+            else:
+                node2.next = merge_recursive(node1, node2.next)
+                return node2
 
+        merged_list = LinkedList([])
+        merged_list._head = merge_recursive(linky1._head, linky2._head) # type: ignore
+        return merged_list
 
-        
+    def pascal_r(self, n: int) -> list[list[int]]:
+        """
+        Returns the first n rows of Pascal's Triangle
+        Precondition:
+        n >= 0
+        >>> pascal_r(5)
+        [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
+        """
+        if n == 0:
+            return []
+
+        res = [[1]]
+        if n == 1:
+            return res
+
+        def helper(lst: list[int]) -> list[int]:
+            temp = [1]  # First element is always 1
+            for i in range(len(lst) - 1):
+                temp.append(lst[i] + lst[i + 1])  # Sum of adjacent elements
+            temp.append(1)  # Last element is always 1
+            return temp
+
+        for _ in range(n - 1):  # Start from 1 since we already have the first row
+            res.append(helper(res[-1]))
+
+        return res
+
 
 if __name__ == "__main__":
     recurs = Recursion()
@@ -232,6 +306,9 @@ if __name__ == "__main__":
     # SUM LISTS
     # print(recurs.sum_lists([]))
     # print(recurs.sum_list([]))
-    recurs.traverse_linky_recursive(LinkedList([1,2,3,4,5]))
+    # recurs.traverse_linky_recursive(LinkedList([1,2,3,4,5]))
+    # print(recurs.is_power(9, 2))
+    # print(recurs.weave_lists_recursive(LinkedList([1, 3, 5]), LinkedList([2, 4, 6])))
+    print(recurs.pascal_r(5))
 
     
