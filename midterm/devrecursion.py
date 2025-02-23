@@ -293,6 +293,22 @@ class Recursion:
 
         return res
 
+    def ispalindrome(self, s: str) -> bool:
+        """Return whether <s> is a palindrome.
+        The function must be implemented **recursively**.
+        """
+        if len(s) == 0:
+            return True
+        
+        if s[0] == " ":
+            return self.ispalindrome(s[1:])
+        elif s[-1] == " ":
+            return self.ispalindrome(s[:-1])
+        if s[0] == s[-1]:
+            return self.ispalindrome(s[1:-1])
+        else:
+            return False
+
 
 if __name__ == "__main__":
     recurs = Recursion()
@@ -309,6 +325,8 @@ if __name__ == "__main__":
     # recurs.traverse_linky_recursive(LinkedList([1,2,3,4,5]))
     # print(recurs.is_power(9, 2))
     # print(recurs.weave_lists_recursive(LinkedList([1, 3, 5]), LinkedList([2, 4, 6])))
-    print(recurs.pascal_r(5))
+    # print(recurs.pascal_r(5))
+
+    print(recurs.ispalindrome("borrow or rob"))
 
     
