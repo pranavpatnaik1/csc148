@@ -15,16 +15,15 @@ lst2[1].append(100)
 print("3: " + str(lst1))
 
 
-
-# lst1.append(99)
-# print(lst1)
+lst1.append(99)
+print("4: " + str(lst1))
 
 
 # print(lst2)
 
 
-# lst1[3] = 25
-# print(lst1)
+lst1[3] = 25
+print(lst1)
 
 
 # print(lst2)

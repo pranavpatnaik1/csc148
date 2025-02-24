@@ -131,18 +131,16 @@ class LinkedList:
     
     def reverse(self) -> None:
         """
-        Reverses the order of the elements in the LinkedList
+        Reverses the order of the elements in the Singly Linked List.
         """
         curr = self._head
         prev = None
 
         while curr:
-            next = curr.next
-
-            # swap next node and prev
-            curr.next, prev = prev, curr
-        
-            curr = next
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
         
         self._head = prev
 
@@ -176,7 +174,6 @@ class LinkedList:
         
         curr.next = None
 
-            
     def __str__(self):
         curr = self._head
         items = []
