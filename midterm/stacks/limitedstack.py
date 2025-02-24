@@ -1,5 +1,5 @@
 from typing import Any, Optional, Union
-
+from devexception import EmptyStackException
 
 class Stack:
     """
