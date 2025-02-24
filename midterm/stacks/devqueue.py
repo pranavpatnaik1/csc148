@@ -9,15 +9,14 @@ class Queue:
     """
     items: list[Any]
 
-    def __init__(self, items):
+    def __init__(self, items: list[Any]):
         self.items = items
     
     def enqueue(self, item: Any) -> None:
-        self.items.insert(0, item)
+        self.items.append(item)
     
     def dequeue(self) -> None:
-        self.items, temp = self.items[:-1], self.items[-1]
-        return temp
+        return self.items.pop(0)
     
     def is_empty(self) -> bool:
         return len(self.items) == 0
@@ -27,6 +26,8 @@ class Queue:
     
     def __str__(self) -> str:
         return str(self.items)
+    
+    
 
 if __name__ == "__main__":
     queue = Queue([])

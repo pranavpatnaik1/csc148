@@ -20,8 +20,7 @@ class Stack:
     def pop(self) -> Any:
         if self.is_empty():
             raise EmptyStackException
-        self.items, temp = self.items[:-1], self.items[-1]
-        return temp
+        return self.items.pop(-1)
     
     def is_empty(self) -> bool:
         return len(self.items) == 0
