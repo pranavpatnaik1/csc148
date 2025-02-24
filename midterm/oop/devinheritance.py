@@ -20,7 +20,7 @@ class Student:
 class MathStudent(Student):
     """Math student."""
     def __init__(self, name: str, courses: list[str], code: int, extra_courses: list[str]) -> None:
-        super().__init__(name, courses, code)  # Correct usage of super() to call the parent class's __init__
+        Student.__init__(name, courses, code)  # Correct usage of super() to call the parent class's __init__
         self.extra_courses = extra_courses
     
     def add(self, a: int, b: int) -> int:
