@@ -1,7 +1,12 @@
 from __future__ import annotations
-from typing import Any, List, Optional
+from typing import Any, Optional
+
 
 """
+Bob Ross has decided to retire from painting after one too many incidents with the Titanium White paint ruining his signature afro. He has decided to take up computer science instead, so he sells all his painting supplies - Except his paintbrush, of course - and buys the finest Linux laptop he can find.
+
+Naturally, Ross has taken a liking to the tree data structure in computer science, and has studied it extensively. He has even created his own tree structure, which he calls a Happy Little Tree.
+
 Bob defines a Happy Little Tree as a tree which satisfies the following properties:
 
 There are an even number of subtrees in the tree. Bob does not like it when there are subtrees without a friend :)
@@ -12,75 +17,28 @@ Bob has asked you to write a method to determine if a given tree is a Happy Litt
 
 class Tree:
     """
-    A tree is a collection of nodes. Each node has a value and a list of subtrees.
-    The tree is a recursive data structure.
-
-    value: int
-    subtrees: list[Tree]
+    Defines a tree.
     """
-    def __init__(self, root: Optional[Any], subtrees: list[Tree]):
+    def __init__(self, root: Any, subtrees: list[Tree]):
         self.root = root
         self.subtrees = subtrees
-
     
-    def __len__(self):
-        """Return the number of items contained in this tree.
-        >>> t1 = Tree(None, [])
-        >>> len(t1)
-        0
-        >>> t2 = Tree(3, [Tree(4, []), Tree(1, [])])
-        >>> len(t2)
-        3
+    def is_happy_tree(self):
         """
-        if self.is_empty():
-            return 0
-        else:
-            size = 1
-            for subtree in self.subtrees:
-                size += subtree.__len__()
-            return size
-
-    
-    def is_unique(self):
-        # UNIQUE VALUES CHECK
-        values = []
-        for subtree in self.subtrees:
-            if subtree.root in values:
-                return False
-            else:
-                values.append(subtree.root)
-                subtree.is_unique()
-        return True
-
-
-    def is_happy_tree(self) -> bool:
-        """
-        Returns whether or not the tree is a Happy Little Tree.
-        A Happy Little Tree is a tree which satisfies the following properties:
-        - There are an even number of subtrees in the tree. Bob does not like it when there are subtrees without a friend :)
-        - All the values within the tree are unique and sum to an odd number.
-        - A Happy Little Tree cannot be empty, because an empty tree is a Sad Little Tree. Bob does not like it when trees are sad and empty.
-
-        >>> tree = Tree(1, [])
-        >>> tree.is_happy_tree()
-        False
-        >>> t2 = Tree(1, [Tree(2, []), Tree(3, [])])
-        >>> t2.is_happy_tree()
+        >>> t1 = Tree(1, [Tree(3, []), Tree(2, [])])
+        >>> t1.is_happy_tree()
         True
-        
         """
-        if self.is_empty() or len(self) == 1:
+        if self.root is None:
             return False
-        elif (len(self) - 1) % 2 == 0 and self.is_unique():
-            return True
-        else:
-            return False
-    
-    
-    def is_empty(self):
-        return self.root is None
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+        def collect_values(tree: Tree) -> list:
+            values = [tree.root]
+            for subtree in tree.subtrees:
+                values.extend(collect_values(subtree))
+            return values
 
+        all_values = collect_values(self)
+
+    
+        return (sum(all_values) % 2 == 1) and (len(set(all_values)) == len(all_values)) and (len(self.subtrees) % 2 == 0)
